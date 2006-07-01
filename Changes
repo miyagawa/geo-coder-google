@@ -1,4 +1,7 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.02  Sat Jul  1 12:27:38 JST 2006
+        - Fix charset= regexp to match with utf-8
+
 0.01  Tue Jun 13 19:54:08 2006
 	- original version

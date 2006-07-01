@@ -1,7 +1,7 @@
 package Geo::Coder::Google;
 
 use strict;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Carp;
 use Encode;
@@ -51,7 +51,7 @@ sub geocode {
     # Ugh, Google Maps returns so stupid HTTP header
     # Content-Type: text/javascript; charset=UTF-8; charset=Shift_JIS
     my @ctype = $res->content_type;
-    my $charset = ($ctype[1] =~ /charset=(\w+)$/)[0] || "utf-8";
+    my $charset = ($ctype[1] =~ /charset=([\w\-]+)$/)[0] || "utf-8";
 
     my $content = Encode::decode($charset, $res->content);
 

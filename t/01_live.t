@@ -16,7 +16,8 @@ plan tests => 2;
     is $location->{Point}->{coordinates}->[0], '-122.397323';
 }
 
-{
+SKIP: {
+    skip "google.co.jp suspended geocoding JP characters", 1;
     my $geocoder = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY}, host => 'maps.google.co.jp');
     my $location = $geocoder->geocode("東京都港区赤坂2-14-5");
     is $location->{Point}->{coordinates}->[0], '139.737808';
