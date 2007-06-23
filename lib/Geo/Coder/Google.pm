@@ -1,7 +1,7 @@
 package Geo::Coder::Google;
 
 use strict;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Carp;
 use Encode;
@@ -20,6 +20,14 @@ sub new {
     my $host = delete $param{host} || 'maps.google.com';
 
     bless { key => $key, ua => $ua, host => $host }, $class;
+}
+
+sub ua {
+    my $self = shift;
+    if (@_) {
+        $self->{ua} = shift;
+    }
+    $self->{ua};
 }
 
 sub geocode {
@@ -142,6 +150,18 @@ Returned data structure is as follows:
       ]
     }
   }
+
+=item ua
+
+Accessor method to get and set UserAgent object used internally. You
+can call I<env_proxy> for example, to get the proxy information from
+environment variables:
+
+  $coder->ua->env_proxy;
+
+You can also set your own User-Agent object:
+
+  $coder->ua( LWPx::ParanoidAgent->new );
 
 =back
 

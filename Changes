@@ -1,5 +1,9 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.03  Sat Jun 23 11:52:05 PDT 2007
+        - Added ua() method and document it.
+          (Thanks to Beirne Konarski)
+
 0.02  Sat Jul  1 12:27:38 JST 2006
         - Fix charset= regexp to match with utf-8
 

@@ -9,7 +9,6 @@ unless ($ENV{GOOGLE_MAPS_APIKEY}) {
 
 plan tests => 2;
 
-
 {
     my $geocoder = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY});
     my $location = $geocoder->geocode("548 4th Street, San Francisco, CA");
