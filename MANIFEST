@@ -1,3 +1,5 @@
+.gitignore
+.shipit
 Changes
 lib/Geo/Coder/Google.pm
 Makefile.PL
