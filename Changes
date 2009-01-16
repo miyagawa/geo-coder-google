@@ -1,5 +1,9 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.04  Thu Jan 15 13:08:00 MSK 2009
+	- Added 'language' attribute for specifying response language
+	  (Thanks to Andrew Shitov)
+
 0.03  Sat Jun 23 11:52:05 PDT 2007
         - Added ua() method and document it.
           (Thanks to Beirne Konarski)

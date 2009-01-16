@@ -16,10 +16,11 @@ sub new {
     my $key = delete $param{apikey}
         or Carp::croak("Usage: new(apikey => \$apikey)");
 
-    my $ua   = delete $param{ua}   || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
-    my $host = delete $param{host} || 'maps.google.com';
+    my $ua       = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
+    my $host     = delete $param{host}     || 'maps.google.com';
+    my $language = delete $param{language};
 
-    bless { key => $key, ua => $ua, host => $host }, $class;
+    bless { key => $key, ua => $ua, host => $host, language => $language }, $class;
 }
 
 sub ua {
@@ -48,7 +49,9 @@ sub geocode {
     }
 
     my $uri = URI->new("http://$self->{host}/maps/geo");
-    $uri->query_form(q => $location, output => 'json', key => $self->{key});
+    my %query_parameters = (q => $location, output => 'json', key => $self->{key});
+    $query_parameters{hl} = $self->{language} if defined $self->{language};
+    $uri->query_form(%query_parameters);
 
     my $res = $self->{ua}->get($uri);
 
@@ -96,6 +99,7 @@ Geo::Coder::Google provides a geocoding functionality using Google Maps API.
 
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key');
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', host => 'maps.google.co.jp');
+  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', language => 'ru');
 
 Creates a new geocoding object. You should pass a valid Google Maps
 API Key as C<apikey> parameter.
@@ -104,6 +108,10 @@ When you'd like to query Japanese address, you might want to set
 I<host> parameter, which should point to I<maps.google.co.jp>. I think
 this also applies to other countries like UK (maps.google.co.uk), but
 so far I only tested with I<.com> and I<.co.jp>.
+
+To specify the language of Google's response add C<language> parameter
+with a two-letter value. Note that adding that parameter does not
+guarantee that every request returns translated data.
 
 =item geocode
 
@@ -175,5 +183,7 @@ it under the same terms as Perl itself.
 =head1 SEE ALSO
 
 L<Geo::Coder::Yahoo>, L<http://www.google.com/apis/maps/documentation/#Geocoding_Examples>
+
+List of supported languages: L<http://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1>
 
 =cut
