@@ -1,5 +1,9 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.05  Fri Mar 20 16:55:43 PDT 2009
+        - Added 'gl' country code parameter
+          (Thanks to Ilia Lobsanov)
+
 0.04  Thu Jan 15 13:08:00 MSK 2009
 	- Added 'language' attribute for specifying response language
 	  (Thanks to Andrew Shitov)
