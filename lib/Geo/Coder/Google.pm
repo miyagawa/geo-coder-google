@@ -19,8 +19,9 @@ sub new {
     my $ua       = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
     my $host     = delete $param{host}     || 'maps.google.com';
     my $language = delete $param{language};
+    my $gl       = delete $param{gl};
 
-    bless { key => $key, ua => $ua, host => $host, language => $language }, $class;
+    bless { key => $key, ua => $ua, host => $host, language => $language, gl => $gl }, $class;
 }
 
 sub ua {
@@ -51,6 +52,7 @@ sub geocode {
     my $uri = URI->new("http://$self->{host}/maps/geo");
     my %query_parameters = (q => $location, output => 'json', key => $self->{key});
     $query_parameters{hl} = $self->{language} if defined $self->{language};
+    $query_parameters{gl} = $self->{gl} if defined $self->{gl};
     $uri->query_form(%query_parameters);
 
     my $res = $self->{ua}->get($uri);
@@ -100,6 +102,7 @@ Geo::Coder::Google provides a geocoding functionality using Google Maps API.
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key');
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', host => 'maps.google.co.jp');
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', language => 'ru');
+  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', gl => 'ca');
 
 Creates a new geocoding object. You should pass a valid Google Maps
 API Key as C<apikey> parameter.
@@ -112,6 +115,8 @@ so far I only tested with I<.com> and I<.co.jp>.
 To specify the language of Google's response add C<language> parameter
 with a two-letter value. Note that adding that parameter does not
 guarantee that every request returns translated data.
+
+You can also set C<gl> parameter to set country code (e.g. I<ca> for Canada).
 
 =item geocode
 
