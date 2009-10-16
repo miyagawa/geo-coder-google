@@ -1,5 +1,10 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.06
+        - This module now adds oe=utf8 to the query parameters by
+          default. This requests that all data be returned as utf-8, with no
+          Javascript \uXXXX escaping. (Dave Rolsky)
+
 0.05  Fri Mar 20 16:55:43 PDT 2009
         - Added 'gl' country code parameter
           (Thanks to Ilia Lobsanov)
