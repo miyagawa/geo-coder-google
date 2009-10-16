@@ -14,7 +14,7 @@ plan tests => 5;
 {
     my $geocoder = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY});
     my $location = $geocoder->geocode("548 4th Street, San Francisco, CA");
-    is $location->{Point}->{coordinates}->[0], '-122.397711';
+    is $location->{Point}->{coordinates}->[0], '-122.397426';
 }
 
 SKIP: {
@@ -31,7 +31,7 @@ SKIP: {
     is $location_es->{Point}->{coordinates}->[0], '-4.0244759';
     my $geocoder_us = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY});
     my $location_us = $geocoder_us->geocode('Toledo');
-    is $location_us->{Point}->{coordinates}->[0], '-83.577782';
+    is $location_us->{Point}->{coordinates}->[0], '-83.555212';
 }
 
 {
