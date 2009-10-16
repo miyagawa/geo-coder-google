@@ -124,7 +124,7 @@ You can also set C<gl> parameter to set country code (e.g. I<ca> for Canada).
   @location = $geocoder->geocode(location => $location);
 
 Queries I<$location> to Google Maps geocoding API and returns hash
-refernece returned back from API server. When you cann the method in
+reference returned back from API server. When you cann the method in
 an array context, it returns all the candidates got back, while it
 returns the 1st one in a scalar context.
 
