@@ -105,6 +105,7 @@ Geo::Coder::Google provides a geocoding functionality using Google Maps API.
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', host => 'maps.google.co.jp');
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', language => 'ru');
   $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', gl => 'ca');
+  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', oe => 'latin1');
 
 Creates a new geocoding object. You should pass a valid Google Maps
 API Key as C<apikey> parameter.
@@ -119,6 +120,9 @@ with a two-letter value. Note that adding that parameter does not
 guarantee that every request returns translated data.
 
 You can also set C<gl> parameter to set country code (e.g. I<ca> for Canada).
+
+You can ask for a character encoding other than utf-8 by setting the I<oe>
+parameter, but this is not recommended.
 
 =item geocode
 
