@@ -20,8 +20,9 @@ sub new {
     my $host     = delete $param{host}     || 'maps.google.com';
     my $language = delete $param{language};
     my $gl       = delete $param{gl};
+    my $oe       = delete $param{oe}       || 'utf8';
 
-    bless { key => $key, ua => $ua, host => $host, language => $language, gl => $gl }, $class;
+    bless { key => $key, ua => $ua, host => $host, language => $language, gl => $gl, oe => $oe }, $class;
 }
 
 sub ua {
@@ -53,6 +54,7 @@ sub geocode {
     my %query_parameters = (q => $location, output => 'json', key => $self->{key});
     $query_parameters{hl} = $self->{language} if defined $self->{language};
     $query_parameters{gl} = $self->{gl} if defined $self->{gl};
+    $query_parameters{oe} = $self->{oe};
     $uri->query_form(%query_parameters);
 
     my $res = $self->{ua}->get($uri);

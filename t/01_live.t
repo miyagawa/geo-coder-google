@@ -1,5 +1,7 @@
 use strict;
+use utf8;
 use Test::More;
+use Encode ();
 use Geo::Coder::Google;
 
 unless ($ENV{GOOGLE_MAPS_APIKEY}) {
@@ -7,7 +9,7 @@ unless ($ENV{GOOGLE_MAPS_APIKEY}) {
     exit;
 }
 
-plan tests => 4;
+plan tests => 5;
 
 {
     my $geocoder = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY});
@@ -32,3 +34,8 @@ SKIP: {
     is $location_us->{Point}->{coordinates}->[0], '-83.577782';
 }
 
+{
+    my $geocoder_utf8 = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY}, oe => 'utf8');
+    my $location_utf8 = $geocoder_utf8->geocode('Bělohorská 80, 6, Czech Republic');
+    is $location_utf8->{address}, 'Bělohorská 1685/80, 162 00 Prague 6-Břevnov, Czech Republic';
+}
