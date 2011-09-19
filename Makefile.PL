@@ -5,7 +5,7 @@ WriteMakefile(
     'PREREQ_PM' => {
 	Test::More => 0.32,
         LWP => 5.5,
-        JSON::Syck => 0.10,
+        JSON => 2.27,
         Encode => 0,
     },
 );

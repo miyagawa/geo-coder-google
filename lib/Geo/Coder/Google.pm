@@ -5,7 +5,7 @@ our $VERSION = '0.06';
 
 use Carp;
 use Encode;
-use JSON::Syck;
+use JSON;
 use HTTP::Request;
 use LWP::UserAgent;
 use URI;
@@ -68,10 +68,8 @@ sub geocode {
     my @ctype = $res->content_type;
     my $charset = ($ctype[1] =~ /charset=([\w\-]+)$/)[0] || "utf-8";
 
-    my $content = Encode::decode($charset, $res->content);
-
-    local $JSON::Syck::ImplicitUnicode = 1;
-    my $data = JSON::Syck::Load($content);
+    my $json = JSON->new->utf8;
+    my $data = $json->decode($res->content);
 
     my @placemark = @{ $data->{Placemark} || [] };
     wantarray ? @placemark : $placemark[0];
