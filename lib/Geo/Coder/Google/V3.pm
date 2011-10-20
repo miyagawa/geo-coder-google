@@ -1,7 +1,8 @@
 package Geo::Coder::Google::V3;
 
 use strict;
-our $VERSION = '0.06';
+use warnings;
+our $VERSION = '0.07';
 
 use Carp;
 use Encode;
@@ -42,7 +43,7 @@ sub geocode {
         $param{location} = shift;
     }
 
-    my $location = $param{location} || 
+    my $location = $param{location} 
         or Carp::croak("Usage: geocode(location => \$location)");
 
     if (Encode::is_utf8($location)) {
