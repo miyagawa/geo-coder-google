@@ -1,5 +1,8 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.07  Thu Oct 20 13:43:00 EST 2011
+    - Add support for v3 of the API
+
 0.06  Thu Oct 15 17:31:33 PDT 2009
     - This module now adds oe=utf8 to the query parameters by default. This
       requests that all data be returned as utf-8, with no Javascript \uXXXX
