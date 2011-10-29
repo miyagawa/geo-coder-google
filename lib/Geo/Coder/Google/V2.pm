@@ -14,16 +14,13 @@ use URI;
 sub new {
     my($class, %param) = @_;
 
-    my $key = delete $param{apikey}
-        or Carp::croak("Usage: new(apikey => \$apikey)");
-
     my $ua       = delete $param{ua}       || LWP::UserAgent->new(agent => __PACKAGE__ . "/$VERSION");
     my $host     = delete $param{host}     || 'maps.google.com';
     my $language = delete $param{language};
     my $gl       = delete $param{gl};
     my $oe       = delete $param{oe}       || 'utf8';
 
-    bless { key => $key, ua => $ua, host => $host, language => $language, gl => $gl, oe => $oe }, $class;
+    bless { ua => $ua, host => $host, language => $language, gl => $gl, oe => $oe }, $class;
 }
 
 sub ua {
@@ -52,7 +49,7 @@ sub geocode {
     }
 
     my $uri = URI->new("http://$self->{host}/maps/geo");
-    my %query_parameters = (q => $location, output => 'json', key => $self->{key});
+    my %query_parameters = (q => $location, output => 'json');
     $query_parameters{hl} = $self->{language} if defined $self->{language};
     $query_parameters{gl} = $self->{gl} if defined $self->{gl};
     $query_parameters{oe} = $self->{oe};
@@ -82,7 +79,7 @@ Geo::Coder::Google::V2 - Google Maps Geocoding API V2
 
   use Geo::Coder::Google;
 
-  my $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key');
+  my $geocoder = Geo::Coder::Google->new();
   my $location = $geocoder->geocode( location => 'Hollywood and Highland, Los Angeles, CA' );
 
 =head1 DESCRIPTION
@@ -95,14 +92,13 @@ Geo::Coder::Google::V2 provides a geocoding functionality using Google Maps API 
 
 =item new
 
-  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key');
-  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', host => 'maps.google.co.jp');
-  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', language => 'ru');
-  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', gl => 'ca');
-  $geocoder = Geo::Coder::Google->new(apikey => 'Your API Key', oe => 'latin1');
+  $geocoder = Geo::Coder::Google->new();
+  $geocoder = Geo::Coder::Google->new(host => 'maps.google.co.jp');
+  $geocoder = Geo::Coder::Google->new(language => 'ru');
+  $geocoder = Geo::Coder::Google->new(gl => 'ca');
+  $geocoder = Geo::Coder::Google->new(oe => 'latin1');
 
-Creates a new geocoding object. You should pass a valid Google Maps
-API Key as C<apikey> parameter.
+Creates a new geocoding object.
 
 When you'd like to query Japanese address, you might want to set
 I<host> parameter, which should point to I<maps.google.co.jp>. I think
