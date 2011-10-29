@@ -4,15 +4,10 @@ use Test::More;
 use Encode ();
 use Geo::Coder::Google;
 
-unless ($ENV{GOOGLE_MAPS_APIKEY}) {
-    plan skip_all => 'No GOOGLE_MAPS_APIKEY env variable';
-    exit;
-}
-
 plan tests => 5;
 
 {
-    my $geocoder = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY});
+    my $geocoder = Geo::Coder::Google->new();
     my $location = $geocoder->geocode("548 4th Street, San Francisco, CA");
     is $location->{Point}->{coordinates}->[0], '-122.397426';
 }
