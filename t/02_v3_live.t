@@ -9,27 +9,25 @@ plan tests => 6;
 {
     my $geocoder = Geo::Coder::Google->new(apiver => 3);
     my $location = $geocoder->geocode("548 4th Street, San Francisco, CA");
-    is $location->{geometry}{location}{lat}, '37.778907';
-    is $location->{geometry}{location}{lng}, '-122.397426';
+    like $location->{geometry}{location}{lat}, qr/37.778907/;
+    like $location->{geometry}{location}{lng}, qr/-122.397426/;
 }
 
 SKIP: {
     skip "google.co.jp suspended geocoding JP characters", 1;
     my $geocoder = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY}, host => 'maps.google.co.jp');
     my $location = $geocoder->geocode("東京都港区赤坂2-14-5");
-    is $location->{Point}->{coordinates}->[0], '139.737808';
+    like $location->{Point}->{coordinates}->[0], qr/139.737808/;
 }
 
 # as per http://code.google.com/apis/maps/documentation/geocoding/#CountryCodes
 {
     my $geocoder_es = Geo::Coder::Google->new(apiver => 3, gl => 'es');
     my $location_es = $geocoder_es->geocode('Toledo');
-#    is $location_es->{Point}->{coordinates}->[0], '-4.0244759';
-    is $location_es->{geometry}{location}{lng}, '-4.0244759';
+    like $location_es->{geometry}{location}{lng}, qr/-4.0244759/;
     my $geocoder_us = Geo::Coder::Google->new(apiver => 3);
     my $location_us = $geocoder_us->geocode('Toledo');
-#    is $location_us->{Point}->{coordinates}->[0], '-83.555212';
-    is $location_us->{geometry}{location}{lng}, '-83.555212';
+    like $location_us->{geometry}{location}{lng}, qr/-83.555212/;
 }
 
 SKIP: {
