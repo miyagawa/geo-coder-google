@@ -14,7 +14,9 @@ WriteMakefile(
         'HTTP::Request' => 0,
     },
     'BUILD_REQUIRES' => {
-	'Test::More' => 0.32,
+        'Test::More' => 0.32,
+        'Digest::HMAC_SHA1' => 0,
+        'MIME::Base64' => 0,
     },
     META_MERGE      => {
         resources => {
