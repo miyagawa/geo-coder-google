@@ -1,7 +1,8 @@
 Revision history for Perl extension Geo::Coder::Google
 
-0.09  Unreleased
+0.09  Fri Nov 25 09:42:00 EST 2011
     - Add support for Premier Client IDs
+          (Thanks to Drew Taylor)
 
 0.08  Fri Oct 28 20:18:33 EST 2011
     - remove api key requirement
