@@ -21,8 +21,14 @@ sub new {
     my $region   = delete $param{region}   || delete $param{gl};
     my $oe       = delete $param{oe}       || 'utf8';
     my $sensor   = delete $param{sensor}   || 0;
+    my $client   = delete $param{client}   || '';
+    my $key      = delete $param{key}      || '';
    
-    bless { ua => $ua, host => $host, language => $language, region => $region, oe => $oe, sensor => $sensor }, $class;
+    bless { 
+        ua => $ua, host => $host, language => $language, 
+        region => $region, oe => $oe, sensor => $sensor,
+        client => $client, key => $key,
+    }, $class;
 }
 
 sub ua {
@@ -57,8 +63,20 @@ sub geocode {
     $query_parameters{oe} = $self->{oe};
     $query_parameters{sensor} = $self->{sensor} ? JSON::true : JSON::false;
     $uri->query_form(%query_parameters);
+    my $url = $uri->as_string;
 
-    my $res = $self->{ua}->get($uri);
+    # Process Maps Premier account info
+    if ($self->{client} and $self->{key}) {
+        $query_parameters{client} = $self->{client};
+        $uri->query_form(%query_parameters);
+
+        my $signature = $self->make_signature($uri);
+        # signature must be last parameter in query string or you get 403's
+        $url = $uri->as_string;
+        $url .= '&signature='.$signature if $signature;
+    }
+
+    my $res = $self->{ua}->get($url);
 
     if ($res->is_error) {
         Carp::croak("Google Maps API returned error: " . $res->status_line);
@@ -70,6 +88,42 @@ sub geocode {
     my @results = @{ $data->{results} || [] };
     wantarray ? @results : $results[0];
 }
+
+# methods below adapted from 
+# http://gmaps-samples.googlecode.com/svn/trunk/urlsigning/urlsigner.pl
+sub decode_urlsafe_base64 {
+  my ($self, $content) = @_;
+
+  $content =~ tr/-/\+/;
+  $content =~ tr/_/\//;
+
+  return MIME::Base64::decode_base64($content);
+}
+
+sub encode_urlsafe{
+  my ($self, $content) = @_;
+  $content =~ tr/\+/\-/;
+  $content =~ tr/\//\_/;
+
+  return $content;
+}
+
+sub make_signature {
+  my ($self, $uri) = @_;
+
+  require Digest::HMAC_SHA1;
+  require MIME::Base64;
+
+  my $key = $self->decode_urlsafe_base64($self->{key});
+  my $to_sign = $uri->path_query;
+
+  my $digest = Digest::HMAC_SHA1->new($key);
+  $digest->add($to_sign);
+  my $signature = $digest->b64digest;
+
+  return $self->encode_urlsafe($signature);
+}
+
 
 1;
 __END__
@@ -108,6 +162,14 @@ You can also set C<gl> parameter to set country code (e.g. I<ca> for Canada).
 
 You can ask for a character encoding other than utf-8 by setting the I<oe>
 parameter, but this is not recommended.
+
+You can optionally use your Maps Premier Client ID, by passing your client
+code as the C<client> parameter and your private key as the C<key> parameter.
+The URL signing for Premier Client IDs requires the I<Digest::HMAC_SHA1>
+and I<MIME::Base64> modules. To test your client, set the environment
+variables GMAP_CLIENT and GMAP_KEY before running 02_v3_live.t
+
+  GMAP_CLIENT=your_id GMAP_KEY='your_key' make test
 
 =item geocode
 
