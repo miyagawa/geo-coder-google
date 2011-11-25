@@ -1,6 +1,6 @@
 use strict;
 use utf8;
-use Test::More;
+use Test::More tests => 8;
 use Encode ();
 use Geo::Coder::Google;
 
@@ -47,5 +47,3 @@ SKIP: {
     my $location_utf8 = $geocoder_utf8->geocode('Bělohorská 80, 6, Czech Republic');
     is $location_utf8->{formatted_address}, 'Bělohorská 1685/80, 162 00 Prague 6-Břevnov, Czech Republic';
 }
-
-done_testing();
