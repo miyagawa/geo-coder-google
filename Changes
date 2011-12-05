@@ -1,5 +1,9 @@
 Revision history for Perl extension Geo::Coder::Google
 
+0.09_01 Mon Dec 0517:32:00 EST 2011
+    - Use Test::Number::Delta to account
+      for 32bit vs 64bit
+
 0.09  Fri Nov 25 09:42:00 EST 2011
     - Add support for Premier Client IDs
           (Thanks to Drew Taylor)
