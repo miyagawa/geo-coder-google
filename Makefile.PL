@@ -15,6 +15,7 @@ WriteMakefile(
     },
     'BUILD_REQUIRES' => {
         'Test::More' => 0.32,
+        'Test::Number::Delta' => 0,
         'Digest::HMAC_SHA1' => 0,
         'MIME::Base64' => 0,
     },
