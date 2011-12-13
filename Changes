@@ -1,6 +1,9 @@
 Revision history for Perl extension Geo::Coder::Google
 
-0.09_01 Mon Dec 0517:32:00 EST 2011
+0.09_02 Tue Dec 13 12:36:00 EST 2011
+    - fix for RT#73237
+
+0.09_01 Mon Dec 05 17:32:00 EST 2011
     - Use Test::Number::Delta to account
       for 32bit vs 64bit
 
