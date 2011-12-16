@@ -1,4 +1,6 @@
 Revision history for Perl extension Geo::Coder::Google
+0.10 Fri Dec 16 09:32:00 EST 2011
+    - non developer release
 
 0.09_02 Tue Dec 13 12:36:00 EST 2011
     - fix for RT#73237
