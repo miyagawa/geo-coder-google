@@ -1,9 +1,15 @@
 use strict;
 use utf8;
 use Test::Number::Delta within => 1e-4;
-use Test::More tests => 8;
+use Test::More;
 use Encode ();
 use Geo::Coder::Google;
+
+if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
+  plan tests => 8;
+} else {
+  plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
+}
 
 {
     my $geocoder = Geo::Coder::Google->new(apiver => 3);

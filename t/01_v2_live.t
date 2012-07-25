@@ -5,7 +5,11 @@ use Test::More;
 use Encode ();
 use Geo::Coder::Google;
 
-plan tests => 5;
+if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
+  plan tests => 5;
+} else {
+  plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
+}
 
 {
     my $geocoder = Geo::Coder::Google->new();
