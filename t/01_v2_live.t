@@ -14,7 +14,7 @@ if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
 {
     my $geocoder = Geo::Coder::Google->new();
     my $location = $geocoder->geocode('548 4th Street, San Francisco, CA');
-    delta_ok($location->{Point}->{coordinates}->[0], -122.397426);
+    delta_ok($location->{Point}->{coordinates}->[0], -122.39732);
 }
 
 SKIP: {
@@ -37,5 +37,5 @@ SKIP: {
 {
     my $geocoder_utf8 = Geo::Coder::Google->new(apikey => $ENV{GOOGLE_MAPS_APIKEY}, oe => 'utf8');
     my $location_utf8 = $geocoder_utf8->geocode('Bělohorská 80, 6, Czech Republic');
-    is($location_utf8->{address}, 'Bělohorská 1685/80, 162 00 Prague 6-Břevnov, Czech Republic');
+    is($location_utf8->{address}, 'Bělohorská 1685/80, 169 00 Prague-Prague 6, Czech Republic');
 }
