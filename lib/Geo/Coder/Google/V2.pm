@@ -2,7 +2,7 @@ package Geo::Coder::Google::V2;
 
 use strict;
 use warnings;
-our $VERSION = '0.11';
+our $VERSION = '0.11_01';
 
 use Carp;
 use Encode;
