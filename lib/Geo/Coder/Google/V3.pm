@@ -85,13 +85,7 @@ sub geocode {
     my $json = JSON->new->utf8;
     my $data = $json->decode($res->content);
 
-    if ($data->{status} eq 'OVER_QUERY_LIMIT') {
-        Carp::croak("Google Maps API exceeded query limit");
-    } elsif ($data->{status} eq 'REQUEST_DENIED') {
-        Carp::croak("Google Maps API request denied");
-    } elsif ($data->{status} eq 'INVALID_REQUEST') {
-        Carp::croak("Google Maps API invalid request");
-    }
+    Carp::croak(sprintf "Google Maps API returned status '%s'", $data->{status}) unless $data->{status} eq 'OK';
 
     my @results = @{ $data->{results} || [] };
     wantarray ? @results : $results[0];
