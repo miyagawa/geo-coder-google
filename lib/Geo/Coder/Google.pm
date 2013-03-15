@@ -2,7 +2,7 @@ package Geo::Coder::Google;
 
 use strict;
 use warnings;
-our $VERSION = '0.11_02';
+our $VERSION = '0.11_03';
 
 sub new {
     my ($self, %param) = @_;
