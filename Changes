@@ -1,4 +1,8 @@
 Revision history for Perl extension Geo::Coder::Google
+0.11_03 Fri Mar 15 09:09:16 EDT 2013
+    - make the croaking if status not ok
+      a bit more generic
+
 0.11_02 Mon Nov 26 22:46:31 EST 2012
     - croak if geo-coder status is not ok
 
