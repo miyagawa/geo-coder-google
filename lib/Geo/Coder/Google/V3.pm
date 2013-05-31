@@ -39,6 +39,22 @@ sub ua {
     $self->{ua};
 }
 
+sub reverse_geocode {
+    my $self = shift;
+
+    my %param;
+    if (@_ % 2 == 0) {
+        %param = @_;
+    } else {
+        $param{latlng} = shift;
+    }
+
+    my $latlng = $param{latlng}
+        or Carp::croak("Usage: reverse_geocode(latlng => \$latlng)");
+
+    return $self->geocode(location => $latlng, reverse => 1);
+};
+
 sub geocode {
     my $self = shift;
 
@@ -56,8 +72,10 @@ sub geocode {
         $location = Encode::encode_utf8($location);
     }
 
+    my $loc_param = $param{reverse} ? 'latlng' : 'address';
+
     my $uri = URI->new("http://$self->{host}/maps/api/geocode/json");
-    my %query_parameters = (address => $location);
+    my %query_parameters = ($loc_param => $location);
     $query_parameters{language} = $self->{language} if defined $self->{language};
     $query_parameters{region} = $self->{region} if defined $self->{region};
     $query_parameters{oe} = $self->{oe};
@@ -185,6 +203,13 @@ returns the 1st one in a scalar context.
 
 When you'd like to pass non-ascii string as a location, you should
 pass it as either UTF-8 bytes or Unicode flagged string.
+
+=item reverse_geocode
+
+  $location = $geocoder->reverse_geocode(latlng => '37.778907,-122.39732');
+  @location = $geocoder->reverse_geocode(latlng => '37.778907,-122.39732');
+
+Similar to geocode except it expects a latitude/longitude parameter.
 
 =item ua
 
