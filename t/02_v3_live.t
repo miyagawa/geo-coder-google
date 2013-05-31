@@ -29,7 +29,7 @@ SKIP: {
 {
     my $geocoder_es = Geo::Coder::Google->new(apiver => 3, gl => 'es');
     my $location_es = $geocoder_es->geocode('Toledo');
-    delta_ok($location_es->{geometry}{location}{lng}, -4.0244759);
+    delta_ok($location_es->{geometry}{location}{lng}, -4.0273231);
     my $geocoder_us = Geo::Coder::Google->new(apiver => 3);
     my $location_us = $geocoder_us->geocode('Toledo');
     delta_ok($location_us->{geometry}{location}{lng}, -83.555212);
