@@ -1,4 +1,7 @@
 Revision history for Perl extension Geo::Coder::Google
+0.11_04 Tue Jun 4 10:28:00 EDT 2013
+    - add reverse geocode
+
 0.11_03 Fri Mar 15 09:09:16 EDT 2013
     - make the croaking if status not ok
       a bit more generic
