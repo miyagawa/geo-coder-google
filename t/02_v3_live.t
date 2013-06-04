@@ -6,7 +6,7 @@ use Encode ();
 use Geo::Coder::Google;
 
 if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
-  plan tests => 8;
+  plan tests => 10;
 } else {
   plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
 }
@@ -29,7 +29,7 @@ SKIP: {
 {
     my $geocoder_es = Geo::Coder::Google->new(apiver => 3, gl => 'es');
     my $location_es = $geocoder_es->geocode('Toledo');
-    delta_ok($location_es->{geometry}{location}{lng}, -4.0244759);
+    delta_ok($location_es->{geometry}{location}{lng}, -4.0273231);
     my $geocoder_us = Geo::Coder::Google->new(apiver => 3);
     my $location_us = $geocoder_us->geocode('Toledo');
     delta_ok($location_us->{geometry}{location}{lng}, -83.555212);
@@ -50,4 +50,15 @@ SKIP: {
     my $geocoder_utf8 = Geo::Coder::Google->new(apiver => 3, oe => 'utf8');
     my $location_utf8 = $geocoder_utf8->geocode('Bělohorská 80, 6, Czech Republic');
     is($location_utf8->{formatted_address}, 'Bělohorská 1685/80, 169 00 Prague-Prague 6, Czech Republic');
+}
+
+# Reverse Geocoding
+{
+    my $geocoder = Geo::Coder::Google->new(apiver => 3);
+
+    my $location = $geocoder->reverse_geocode(latlng => '31.5494486689568,-97.1467727422714');
+    like( $location->{formatted_address}, qr/Waco, TX/, 'reverse geocode' );
+
+    $location = $geocoder->reverse_geocode('42.3222599,-83.1763145');
+    like( $location->{formatted_address}, qr/Dearborn, MI/, 'reverse geocode' );
 }
