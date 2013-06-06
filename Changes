@@ -1,4 +1,7 @@
 Revision history for Perl extension Geo::Coder::Google
+0.12 Thu Jun  6 16:15:55 EDT 2013
+   - non-dev release
+
 0.11_04 Tue Jun 4 10:28:00 EDT 2013
     - add reverse geocode
 
