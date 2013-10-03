@@ -6,8 +6,6 @@ lib/Geo/Coder/Google/V2.pm
 lib/Geo/Coder/Google/V3.pm
 Makefile.PL
 MANIFEST			This list of files
-MYMETA.json
-MYMETA.yml
 README
 t/00_compile.t
 t/01_v2_live.t
