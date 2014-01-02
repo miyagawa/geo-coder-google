@@ -2,7 +2,7 @@ package Geo::Coder::Google::V3;
 
 use strict;
 use warnings;
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 use Carp;
 use Encode;
@@ -10,6 +10,8 @@ use JSON;
 use HTTP::Request;
 use LWP::UserAgent;
 use URI;
+
+my @ALLOWED_FILTERS = qw/route locality administrative_area postal_code country/;
 
 sub new {
     my($class, %param) = @_;
@@ -23,11 +25,13 @@ sub new {
     my $sensor   = delete $param{sensor}   || 0;
     my $client   = delete $param{client}   || '';
     my $key      = delete $param{key}      || '';
+    my $components = delete $param{components};
    
     bless { 
         ua => $ua, host => $host, language => $language, 
         region => $region, oe => $oe, sensor => $sensor,
         client => $client, key => $key,
+        components => $components,
     }, $class;
 }
 
@@ -80,6 +84,8 @@ sub geocode {
     $query_parameters{region} = $self->{region} if defined $self->{region};
     $query_parameters{oe} = $self->{oe};
     $query_parameters{sensor} = $self->{sensor} ? 'true' : 'false';
+    my $components_params = $self->_get_components_query_params;
+    $query_parameters{components} = $components_params if defined $components_params;
     $uri->query_form(%query_parameters);
     my $url = $uri->as_string;
 
@@ -144,6 +150,25 @@ sub make_signature {
   return $self->encode_urlsafe($signature);
 }
 
+# Google API wants the components formatted in the following way:
+# <filter1>:<value1>|<filter2>:<value2>|....|<filterN>:<valueN>
+sub _get_components_query_params {
+    my ($self, ) = @_;
+    my $components = $self->{components};
+
+    my @validated_components;
+    foreach my $filter (sort keys %$components ) {
+        next unless grep {$_ eq $filter} @ALLOWED_FILTERS;
+        my $value = $components->{$filter};
+        if (!defined $value) {
+            Carp::croak("Value not specified for filter $filter");
+        }
+        # Google API expects the parameter to be passed as <filter_name>:<value>
+        push @validated_components, "$filter:$value";
+    }
+    return unless @validated_components;
+    return join('|', @validated_components);
+}
 
 1;
 __END__

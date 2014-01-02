@@ -1,4 +1,7 @@
 Revision history for Perl extension Geo::Coder::Google
+0.14 Thu Jan 2 14:15:20 EDT 2014
+   - addes support for 'Component Filtering'
+
 0.13 Thu Oct  3 16:46:05 EDT 2013
    - remove MYMETA.json & MYMETA.yml from dist (RT#89140)
 

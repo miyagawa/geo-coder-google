@@ -6,7 +6,7 @@ use Encode ();
 use Geo::Coder::Google;
 
 if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
-  plan tests => 10;
+  plan tests => 14;
 } else {
   plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
 }
@@ -61,4 +61,21 @@ SKIP: {
 
     $location = $geocoder->reverse_geocode('42.3222599,-83.1763145');
     like( $location->{formatted_address}, qr/Dearborn, MI/, 'reverse geocode' );
+}
+
+# Test components - country
+{
+    my $geocoder = Geo::Coder::Google->new(apiver => 3, components => { country => 'ES'});
+
+    my $location = $geocoder->geocode(location => 'santa cruz');
+    like( $location->{formatted_address}, qr/Santa Cruz de Tenerife/, 'santa cruz de tenerife' );
+    like( $location->{formatted_address}, qr/Spain/, 'santa cruz - make sure is in spain' );
+}
+
+# Test components - country + administrative_area
+{
+    my $geocoder = Geo::Coder::Google->new(apiver => 3, components => { country => 'US', administrative_area => 'TX'});
+
+    my $location = $geocoder->geocode(location => 'Torun');
+    like( $location->{formatted_address}, qr/Texas, USA/, 'Texas, USA' );
 }
