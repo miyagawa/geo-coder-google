@@ -6,7 +6,7 @@ use Encode ();
 use Geo::Coder::Google;
 
 if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
-  plan tests => 14;
+  plan tests => 13;
 } else {
   plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
 }
