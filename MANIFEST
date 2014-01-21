@@ -10,3 +10,4 @@ README
 t/00_compile.t
 t/01_v2_live.t
 t/02_v3_live.t
+t/03_v3_unit.t

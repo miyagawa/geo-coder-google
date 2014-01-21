@@ -1,4 +1,7 @@
 Revision history for Perl extension Geo::Coder::Google
+0.14 Tue Jan 21 10:41:18 EST 2014
+   - release 0.13_01 as a non-dev release
+
 0.13_01 Thu Jan 2 14:15:20 EDT 2014
    - addes support for 'Component Filtering'
 
