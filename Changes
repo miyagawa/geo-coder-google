@@ -1,4 +1,8 @@
 Revision history for Perl extension Geo::Coder::Google
+0.14_01 Thu Nov 20 10:04:19 EST 2014
+   - provide API key to request (RT#100471)
+       (Thanks to Klaus S. Madsen)
+
 0.14 Tue Jan 21 10:41:18 EST 2014
    - release 0.13_01 as a non-dev release
 
