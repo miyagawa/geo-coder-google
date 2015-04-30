@@ -32,4 +32,11 @@ B<Note that Google no longer supports the V2 API. Geo::Coder::Google defaults
 to the V3 API. The V2 interface is still here but any attempts to use it will
 fail since the V2 API service is no longer reachable.>
 
+=head1 LICENSE
+
+This program is free software; you can redistribute it and/or 
+modify it under the same terms as Perl itself.
+
+See L<http://www.perl.com/perl/misc/Artistic.html>
+
 =cut
