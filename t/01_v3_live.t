@@ -15,7 +15,7 @@ if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
     my $geocoder = Geo::Coder::Google->new(apiver => 3);
     my $location = $geocoder->geocode('548 4th Street, San Francisco, CA');
     delta_ok($location->{geometry}{location}{lat}, 37.778907);
-    delta_ok($location->{geometry}{location}{lng}, -122.39732);
+    delta_ok($location->{geometry}{location}{lng}, -122.39760);
 }
 
 SKIP: {
@@ -42,14 +42,14 @@ SKIP: {
     my $key    = $ENV{GMAP_KEY};
     my $geocoder = Geo::Coder::Google->new( apiver => 3, client => $client, key => $key );
     my $location = $geocoder->geocode(location => 'New York');
-    delta_ok($location->{geometry}{location}{lat}, 40.7143528, 'Latitude for NYC');
+    delta_ok($location->{geometry}{location}{lat}, 40.71278, 'Latitude for NYC');
     delta_ok($location->{geometry}{location}{lng}, -74.0059731, 'Longitude for NYC');
 }
 
 SKIP: {
     my $geocoder_utf8 = Geo::Coder::Google->new(apiver => 3, oe => 'utf8');
     my $location_utf8 = $geocoder_utf8->geocode('Bělohorská 80, 6, Czech Republic');
-    is($location_utf8->{formatted_address}, 'Bělohorská 1685/80, 169 00 Prague-Prague 6, Czech Republic');
+    is($location_utf8->{formatted_address}, 'Bělohorská 1685/80, 169 00 Praha-Praha 6, Czech Republic');
 }
 
 # Reverse Geocoding

@@ -86,6 +86,9 @@ Geo::Coder::Google::V2 - Google Maps Geocoding API V2
 
 Geo::Coder::Google::V2 provides a geocoding functionality using Google Maps API V2.
 
+B<Note: Google no longer supports the V2 API. There are no longer any V2 servers to
+connect to. Any attempt to use the V2 API will fail.>
+
 =head1 METHODS
 
 =over 4
