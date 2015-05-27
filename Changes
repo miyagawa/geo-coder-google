@@ -1,4 +1,7 @@
 Revision history for Perl extension Geo::Coder::Google
+0.15 Tue May 26 21:51:10 EDT 2015
+   - release 0.14_02 as a non-dev release
+
 0.14_02 Mon May  4 22:00:26 EDT 2015
    - make v3 the default (Thanks to Ken Harris)
    - add license info (Thanks to Ken Harris)
