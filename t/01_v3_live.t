@@ -6,7 +6,7 @@ use Encode ();
 use Geo::Coder::Google;
 
 if ($ENV{TEST_GEOCODER_GOOGLE_LIVE}) {
-  plan tests => 13;
+  plan tests => 14;
 } else {
   plan skip_all => 'Not running live tests. Set $ENV{TEST_GEOCODER_GOOGLE_LIVE} = 1 to enable';
 }
@@ -44,6 +44,12 @@ SKIP: {
     my $location = $geocoder->geocode(location => 'New York');
     delta_ok($location->{geometry}{location}{lat}, 40.71278, 'Latitude for NYC');
     delta_ok($location->{geometry}{location}{lng}, -74.0059731, 'Longitude for NYC');
+}
+
+{
+    my $geocoder = Geo::Coder::Google->new(apiver => 3);
+    my $location = $geocoder->geocode('fdhkjafhdkjfhadskjfhasjklfhdlsak');
+    is( $location, undef, "No location on zero results" );
 }
 
 SKIP: {
