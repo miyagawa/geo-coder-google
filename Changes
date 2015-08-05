@@ -1,4 +1,8 @@
 Revision history for Perl extension Geo::Coder::Google
+0.15_01 Tue Aug  4 20:53:28 EDT 2015
+   - Don't croak when Google returns ZERO_RESULTS (RT#104618)
+       (Thanks to Klaus S. Madsen)
+
 0.15 Tue May 26 21:51:10 EDT 2015
    - release 0.14_02 as a non-dev release
 
