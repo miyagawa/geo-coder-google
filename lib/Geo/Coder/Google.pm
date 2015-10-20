@@ -193,8 +193,8 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<Geo::Coder::Yahoo>, L<http://www.google.com/apis/maps/documentation/#Geocoding_Examples>
+L<Geo::Coder::Yahoo>, L<https://developers.google.com/maps/documentation/geocoding/intro>
 
-List of supported languages: L<http://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1>
+List of supported languages: L<https://developers.google.com/maps/faq#languagesupport>
 
 =cut
