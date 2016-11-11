@@ -1,4 +1,9 @@
 Revision history for Perl extension Geo::Coder::Google
+
+0.17
+   - update metadata to v2: listing test prereqs properly, and update the
+     github repository
+
 0.16 Tue Aug 11 10:16:31 EDT 2015
    - release 0.15_01 as a non-dev release
 
