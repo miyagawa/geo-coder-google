@@ -10,3 +10,5 @@
 \.gz$
 \.cvsignore
 \.git/
+^MYMETA\.yml$
+^MYMETA\.json$
