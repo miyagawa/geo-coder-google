@@ -13,17 +13,24 @@ WriteMakefile(
         URI => 0,
         'HTTP::Request' => 0,
     },
-    'BUILD_REQUIRES' => {
+    'TEST_REQUIRES' => {
         'Test::More' => 0.32,
         'Test::Number::Delta' => 0,
         'Digest::HMAC_SHA1' => 0,
         'MIME::Base64' => 0,
     },
     META_MERGE      => {
+        'meta-spec' => { version => 2 },
         resources => {
-            license     => 'http://dev.perl.org/licenses/',
-            bugtracker  => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Geo-Coder-Google',
-            repository  => 'https://github.com/miyagawa/geo-coder-google',
+            bugtracker  => {
+                web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=Geo-Coder-Google',
+                mailto => 'bug-Geo-Coder-Google@rt.cpan.org',
+            },
+            repository  => {
+                type => 'git',
+                url => 'https://github.com/arcanez/geo-coder-google.git',
+                web => 'https://github.com/arcanez/geo-coder-google',
+            },
         },
     },
 );
